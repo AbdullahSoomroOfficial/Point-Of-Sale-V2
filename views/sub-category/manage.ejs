@@ -1,0 +1,70 @@
+<% layout('/layout/boilerplate.ejs') %>
+
+<div class="container-fluid">
+    <div class="row bg-light rounded">
+        <div class="col p-4">
+            <% if (subCategories.length !==0) { %>
+                <% let counter = 1; %> 
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Sub-Category</th>
+                            <th>Category</th>
+                            <th><span class="ms-2">Edit</span></th>
+                            <th><span class="ms-4">Delete</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let subCategory of subCategories) { %>
+                            <tr>
+                                <td><%= counter %></td>
+                                <td><%= subCategory['sub-category'] %></td>
+                                <td><%= subCategory.category.category %></td>
+                                <td>
+                                    <form action="/sub-category/<%=subCategory._id%>?_method=GET" method="POST" class="ms-auto">
+                                        <button class="btn btn-info">Edit</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="/sub-category/<%=subCategory._id%>?_method=DELETE" method="POST" class="ms-3">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                                <% counter++ %> 
+                        <% } %>
+                    </tbody>
+                    </table>
+            <% } else { %>
+                <h3>There are no sub-categories available!.</h3>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- <% //if (subCategories.length !== 0) { %>
+    <div class="bg-light p-4 rounded">
+        <ol class="list-group list-group-numbered">
+            <%// for(let subCategory of subCategories) { %> 
+                <li class="list-group-item d-flex">
+                    <%=// subCategory['sub-category'] %>
+                    <form action="/sub-category/<%=//subCategory._id%>" class="ms-auto">
+                        <button class="btn btn-info">Edit</button>
+                    </form>
+                    <form action="/sub-category/<%=//subCategory._id%>?_method=DELETE" method="POST" class="ms-3">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </li>
+            <% //} %>     
+        </ol>
+    </div>
+<% //} else { %>
+    <div class="bg-light p-4 rounded">
+        <h3>There are no sub-categories available!.</h3>
+    </div>
+<%// } %>      -->

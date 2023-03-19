@@ -1,0 +1,38 @@
+<% layout('/layout/boilerplate.ejs') %>
+
+    <div class="container-fluid">
+        <div class="row bg-light rounded">
+            <div class="col p-4">
+                <form action="/sub-category/<%= subCategory._id %>?_method=PUT" method="POST">
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Edit Category</label>
+                        <% if(categories.length !==0) { %>
+                            <select name="category" id="category" required class="form-select">
+                                <option value="<%=subCategory.category._id %>">
+                                    <%=subCategory.category.category %>
+                                </option>
+                                <% for(let category of categories) { %>
+                                    //Excluding the category which was selected
+                                    // Template Literal are used to convert ObjectId(from MongoDB) to String Type
+                                    <% if(`${category._id}` !== `${subCategory.category._id}`) { %> 
+                                        <option value="<%= category._id %>">
+                                            <%= category.category %> 
+                                        </option>
+                                    <% } %> 
+                                <% } %>
+                            </select>
+                        <% } else { %>
+                            <select name="category" id="category" required class="form-select" disabled>
+                                <option value="">-- No Categories Availabel --</option>
+                            </select>
+                        <% } %>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sub-category" class="form-label">Edit Sub-Category</label>
+                        <input type="text" class="form-control" name="sub-category" id="sub-category" placeholder="Sub-Category Name" required  value="<%= subCategory['sub-category'] %>">
+                    </div>
+                    <button class="btn btn-success col-12">Edit Category</button>
+                </form>
+            </div>
+        </div>
+    </div>

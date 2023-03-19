@@ -1,0 +1,218 @@
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  /* background-color: #f1f1f1; */
+  background-color: #0E5E6F;
+  /* background-color: #3C62D1; */
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  /* display: flex; */
+  /* flex-direction: column; */
+}
+
+.sidebar .sidebar-logo {
+  width: 200px;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 16px 0;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid #3a8891;
+  border-radius: 10px;
+  margin: 4px auto;
+  width: 95%;
+}
+
+/* -----------My Styles----------- */
+.menu-icon {
+  display: none;
+}
+
+.cross-icon {
+  display: none;
+  z-index: 20;
+  position: fixed;
+  top: 4px;
+  left: 204px;
+  color: #ffffff;
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+div.show-sidebar {
+  display: block;
+}
+
+.sidebar .logout-btn {
+  position: absolute;
+  bottom: 0;
+  /* justify-self: flex-start; */
+  /* width: 200px; */
+  padding: 16px 0;
+  background-color: red;
+  color: white;
+  width: 95%;
+  margin-left: 5px;
+  border: none;
+}
+
+/* .logo {
+  position: absolute;
+  z-index: 10;
+  right: 2px;
+  bottom: 2px;
+  width: 100px;
+  border-radius: 50%;
+} */
+
+.category-container {
+  box-sizing: border-box;
+  background-color: #f1f1f1;
+  width: 100%;
+  padding: 2em;
+  margin-bottom: 10px;
+}
+
+.category-container input {
+  width: 80%;
+  outline: none;
+  padding: 1em;
+}
+
+.category-container input:focus {
+  outline: 1px solid black;
+}
+
+.category-container button {
+  width: 15%;
+  padding: 1.1em;
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+}
+
+.category-container button:hover {
+  background-color: #029f66;
+}
+
+/* ------ sub-category ------ */
+.category-container select {
+  display: block;
+  width: 81.9%;
+  padding: 1em;
+  margin-bottom: 2px;
+}
+
+.category-container select option {
+  background-color: rgb(214, 214, 214);
+}
+
+/* -----------My Styles End----------- */
+
+.sidebar a.active {
+  background-color: #3a8891;
+  color: white;
+  border: none;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: black;
+  color: white;
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  /* height: 100vh; */
+  min-height: 100vh;
+  background-color: #3a8891;
+  /* background-color: #F6F7FA; */
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    /* my styles */
+    display: none;
+    z-index: 2;
+  }
+
+  /* .sidebar a {
+    float: left;
+  } */
+
+  .menu-icon {
+    display: block;
+  }
+
+  .hide {
+    display: none;
+  }
+  
+  .show {
+    display: block;
+  }
+
+  .sidebar .logout-btn {
+    /* position: static; */
+    /* display: block; */
+    /* width: 100%; */
+  }
+
+  .sidebar-logo {
+    /* display: none; */
+  }
+
+  div.content {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+
+  .sidebar .logout-btn {
+    /* position: static; */
+    /* display: block; */
+    /* width: 100%; */
+  }
+
+  .sidebar .sidebar-logo {
+    /* width: 100%; */
+    /* display: none; */
+  }
+}
+
+@media screen and (max-height: 572px) {
+  .sidebar .logout-btn {
+    position: static;
+  }
+}
+
+.overlay {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.55);
+  min-width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  overflow-y: hidden;
+  z-index: 1;
+}

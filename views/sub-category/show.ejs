@@ -1,0 +1,76 @@
+<% layout('/layout/boilerplate.ejs') %>
+
+    <div class="container-fluid">
+        <div class="row bg-light rounded">
+            <div class="col p-4">
+
+                <!-- <h3>Sub Category</h3> -->
+                <form action="/sub-category" method="POST" class="needs-validation" novalidate>
+                    
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Select Category</label>
+                        <% if(categories.length !==0) { %>
+                            <select name="category" id="category" required class="form-select">
+                                <option value="">-- Select Category --</option>
+                                <% for(let category of categories) { %>
+                                    <option value="<%= category._id %>">
+                                        <%= category.category %>
+                                    </option>
+                                <% } %>
+                            </select>
+                            <% } else { %>
+                                <select name="category" id="category" required class="form-select" disabled>
+                                    <option value="">-- No Categories Availabel --</option>
+                                </select>
+                            <% } %>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sub-category" class="form-label">Add Sub-Category</label> 
+                        <input type="text" class="form-control" name="sub-category" id="sub-category" placeholder="Sub-Category Name" required>
+                    </div>
+
+                    <button class="btn btn-success col-12">Add Sub-Category</button>
+
+                </form>
+
+                <div class="d-flex flex-column mt-3">
+                    <form action="/sub-category/manage" class="align-self-end">
+                        <button class="btn btn-primary">Manage Sub Categories</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid my-5">
+        <div class="row bg-light rounded">
+            <div class="col p-4">
+                <% if (subCategories.length !==0) { %>
+                    <% let counter = 1; %> 
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Sub-Category</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(let subCategory of subCategories) { %>
+                                <tr>
+                                    <td><%= counter %></td>
+                                    <td><%= subCategory['sub-category'] %></td>
+                                    <td><%= subCategory.category.category %></td>
+                                </tr>
+                                    <% counter++ %> 
+                            <% } %>
+                        </tbody>
+                        </table>
+                <% } else { %>
+                    <h3>There are no sub-categories available!.</h3>
+                <% } %>
+            </div>
+        </div>
+    </div>

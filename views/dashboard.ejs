@@ -1,0 +1,78 @@
+<% layout('/layout/boilerplate.ejs') %>
+<link rel="stylesheet" href="../css/dashboard.css">
+    <div class="container-fluid">
+        <div class="row">
+                <% if(pendingOrders.length > 0) { %>
+                <div class="col" id="cardContainer">
+                    <% let counter = 1; %> 
+                    <% for(const pendingOrder of pendingOrders) {%>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <div>
+                                    Order <%= counter++ %> 
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="me-3">
+                                        <form action="/order/<%= pendingOrder.id%>?_method=DELETE" method="POST">
+                                            <button class="btn btn-sm btn-danger" type="submit">Cancel</button>
+                                        </form>
+                                    </div>
+                                    <div>
+                                        <form action="/order/<%= pendingOrder.id%>?_method=PUT" method="POST">
+                                            <button class="btn btn-sm btn-success" type="submit">Delivered</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <span class="d-block">
+                                    <span class="orderDetail">
+                                        <span>Name : </span>
+                                        <span><%=pendingOrder.customerName%></span>
+                                    </span>
+                                </span>
+                                <span class="d-block">
+                                    <span class="orderDetail">
+                                        <span>Number : </span>
+                                        <span><%=pendingOrder.customerNumber%></span>
+                                    </span>
+                                </span>
+                                <span class="d-block">
+                                    <span class="orderDetail">
+                                        <span>Addess : </span>
+                                        <span>
+                                            <%=
+                                                pendingOrder.customerAddress?pendingOrder.customerAddress:'N/A'
+                                            %>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="d-block">
+                                    <span class="orderDetail">
+                                        <span>Status : </span>
+                                        <span class="badge bg-primary">
+                                            <%=pendingOrder.orderStatus%>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span class="d-block">
+                                    <span class="orderDetail">
+                                        <span>Amount : </span>
+                                        <span>
+                                            <%= 'Rs.'+pendingOrder.netAmount %>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>   
+                <% } else { %>
+                <div class="col bg-light rounded p-4"> 
+                        <h3>
+                            <%= 'There Are No Pending Orders!' %>
+                        </h3>
+                </div>
+                <% } %>
+        </div>
+    </div>

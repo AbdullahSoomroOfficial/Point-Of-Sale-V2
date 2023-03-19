@@ -1,0 +1,233 @@
+<% layout('/layout/boilerplate.ejs') %>
+
+<div class="container-fluid mb-5 body">
+  <% //if(!backData){ %>
+  <div class="row bg-light rounded">
+    <div class="col p-4">
+      <% if(items.length > 0) { %>
+      <form action="/order" method="POST" class="needs-validation" novalidate>
+        <legend>Customer Details</legend>
+        <div class="mb-3">
+          <label for="customerName" class="form-label">Name</label>
+          <input
+            type="text"
+            name="customerName"
+            id="customerName"
+            class="form-control"
+            placeholder="Customer Name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="customerNumber" class="form-label">Number</label>
+          <input
+            type="text"
+            name="customerNumber"
+            id="customerNumber"
+            class="form-control"
+            pattern="[0-9]\d{10}"
+            title="Please Enter 11 Digit Number"
+            placeholder="Customer Number"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="customerAddress" class="form-label">Address</label>
+          <textarea
+            name="customerAddress"
+            id="customerAddress"
+            rows="3"
+            cols="3"
+            class="form-control"
+            placeholder="Customer Address"
+          ></textarea>
+        </div>
+
+        <legend>Order Details</legend>
+        <div class="items-container mb-3">
+          <!-- <% //if(items.length > 0) { %> -->
+          <datalist id="items-data-list">
+            <% for(let item of items) { %>
+            <option value="<%= item.item %>"><% } %></option>
+          </datalist>
+
+          <div class="item d-flex mb-3 align-items-end">
+            <div class="col-5 me-3">
+              <label for="item1" class="form-label">Item</label>
+              <input
+                type="text"
+                class="form-control"
+                name="items[item1][itemName]"
+                id="item1"
+                list="items-data-list"
+                placeholder="Item"
+                required
+              />
+            </div>
+            <div class="col-5 me-3">
+              <label for="quantity1" class="form-label">Quantity</label>
+              <input
+                type="number"
+                class="form-control"
+                name="items[item1][quantity]"
+                id="quantity1"
+                min="1"
+                placeholder="Quantity"
+                required
+              />
+            </div>
+            <!-- <div class="col">
+                                        <button class="btn btn-danger col-12 delete-item" type="button">Delete</button>
+                                    </div> -->
+          </div>
+
+          <button
+            type="button"
+            id="addItem"
+            class="btn btn-info col-12 add-item"
+          >
+            Add Item
+          </button>
+          <!-- <% //} else {%>
+                                    <h5 class="text-danger">Please Add Items First!</h5>
+                                <%// } %> -->
+        </div>
+        <div class="mb-3">
+          <label for="discount" class="form-label">Discount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="discount"
+            id="discount"
+            min="1"
+            max="100"
+            placeholder="Discount"
+          />
+        </div>
+
+        <!-- hidden data -->
+        <input type="hidden" name="hiddenData" id="hiddenItems" />
+
+        <button class="btn btn-success col-12 create-order" type="submit">
+          Create Order
+        </button>
+      </form>
+      <% } else {%>
+      <h5 class="text-danger">Please Add Items First!</h5>
+      <% } %>
+    </div>
+  </div>
+  <% //} else { %>
+  <!-- <div class="data">
+                    <%= //backData %>
+                </div> -->
+  <% //} %>
+</div>
+
+<!-- <script>
+        // window.onload = function () {
+        //     const dataDiv = document.querySelector('.data');
+        //     // console.log(dataDiv);
+        //     if (dataDiv) {
+        //         const str = dataDiv.innerText;
+        //         // console.log(str);
+        //         dataDiv.innerHTML = '';
+        //         const stringToHTML = function (str) {
+        //             var parser = new DOMParser();
+        //             var doc = parser.parseFromString(str, 'text/html');
+        //             // console.log(doc);
+        //             return doc.body.innerHTML;
+        //         };
+        //         dataDiv.innerHTML = stringToHTML(str);
+        //     }
+        // }
+    //     const itemsContainer = document.querySelector('.items-container');
+    //     const addItem = document.querySelector('.add-item');
+    //     console.log(addItem)
+    //     let counter = 2;
+
+    //     function createElements() {
+    //         const itemDiv = document.createElement('div');
+    //         itemDiv.classList.add('item', 'd-flex', 'mb-3', 'align-items-end');
+
+    //         const div1 = document.createElement('div');
+    //         div1.classList.add('col-5', 'me-3');
+
+    //         const div2 = document.createElement('div');
+    //         div2.classList.add('col-5', 'me-3');
+
+    //         const div3 = document.createElement('div');
+    //         div3.classList.add('col');
+
+    //         const label1 = document.createElement('label');
+    //         label1.classList.add('form-label');
+    //         label1.setAttribute('for', 'item' + counter);
+    //         label1.innerText = 'Item';
+    //         const input1 = document.createElement('input');
+    //         input1.classList.add('form-control');
+    //         input1.type = 'text';
+    //         input1.name = `items[item${counter}][itemName]`;
+    //         input1.id = 'item' + counter;
+    //         input1.placeholder = 'Item';
+    //         input1.setAttribute('list', 'items-data-list');
+    //         input1.required = true;
+
+    //         const label2 = document.createElement('label');
+    //         label2.classList.add('form-label');
+    //         label2.setAttribute('for', 'quantity' + counter);
+    //         label2.innerText = 'Quantity';
+    //         const input2 = document.createElement('input');
+    //         input2.classList.add('form-control');
+    //         input2.type = 'number';
+    //         input2.name = `items[item${counter}][quantity]`;
+    //         input2.id = 'quantity' + counter;
+    //         input2.placeholder = 'Quantity';
+    //         input2.min = '1';
+    //         input2.required = true;
+
+    //         const deleteBtn = document.createElement('button');
+    //         deleteBtn.classList.add('btn', 'btn-danger', 'col-12', 'delete-item');
+    //         deleteBtn.type = 'button';
+    //         deleteBtn.innerText = 'Delete';
+
+    //         counter++;
+
+    //         div1.append(label1, input1);
+    //         div2.append(label2, input2);
+    //         div3.append(deleteBtn);
+    //         itemDiv.append(div1, div2, div3);
+
+    //         return itemDiv;
+    //     }
+
+    //     // Adding event listener to document for for all delete button
+    //     document.addEventListener('click', function (event) {
+    //         if (event.target.matches('.delete-item')) {
+    //             event.target.parentElement.parentElement.remove();
+    //             counter--;
+    //         }
+    //     });
+
+    //     addItem.addEventListener('click', function (event) {
+    //         const itemDiv = createElements();
+    //         itemsContainer.insertBefore(itemDiv, addItem);
+    //     });
+
+
+    //     // setting hidden field value
+    //     document.addEventListener('click', function () {
+    //         const hiddenItems = document.getElementById('hiddenItems');
+    //         const itemsContainer = document.querySelector('.body')
+    //         hiddenItems.value = itemsContainer.innerHTML;
+    //     });
+
+    //     document.addEventListener('input', function (e) {
+    //         // if(e.target.parentElement.parentElement.matches('.item') || e.target.parentElement.parentElement.parentElement.parentElement.parentElement.matches('.body')){
+    //         e.target.setAttribute('value', e.target.value);
+    //         const hiddenItems = document.getElementById('hiddenItems');
+    //         const itemsContainer = document.querySelector('.body');
+    //         hiddenItems.value = JSON.stringify(itemsContainer.innerHTML);
+    //         // console.log(itemsContainer.innerHTML);
+    //         // }
+    //     });
+    </script> -->

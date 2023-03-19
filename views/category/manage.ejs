@@ -1,0 +1,65 @@
+<% layout('/layout/boilerplate.ejs') %>
+
+<div class="container-fluid">
+    <div class="row bg-light rounded">
+        <div class="col p-4">
+            <% if (categories.length !==0) { %>
+                <% let counter = 1; %> 
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Category</th>
+                            <th><span class="ms-2">Edit</span></th>
+                            <th><span class="ms-4">Delete</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let category of categories) { %>
+                            <tr>
+                                <td><%= counter %></td>
+                                <td><%= category.category %></td>
+                                <td>
+                                    <form action="/category/<%=category._id%>?_method=GET" method="POST" class="ms-auto">
+                                        <button class="btn btn-info">Edit</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="/category/<%=category._id%>?_method=DELETE" method="POST" class="ms-3">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                                <% counter++ %> 
+                        <% } %>
+                    </tbody>
+                    </table>
+            <% } else { %>
+                <h3>There are no categories available!.</h3>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+
+<!-- <%// if (categories.length !== 0) { %>
+    <div class="bg-light p-4 rounded">
+        <ol class="list-group list-group-numbered">
+            <% //for(let category of categories) { %> 
+                <li class="list-group-item d-flex">
+                    <%= //category.category %> 
+                    <form action="/category/<%=//category._id%>?_method=GET" method="POST" class="ms-auto">
+                        <button class="btn btn-info">Edit</button>
+                    </form>
+                    <form action="/category/<%=//category._id%>?_method=DELETE" method="POST" class="ms-3">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </li>
+            <%// } %>     
+        </ol>
+    </div>
+<% //} else { %>
+    <div class="bg-light p-4 rounded">
+        <h3>There are no categories available!.</h3>
+    </div>
+<%// } %>      -->

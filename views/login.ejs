@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="../img/logo/logo.jpg" />
+    <title>Login | Point Of Sale</title>
+    <!-- My stylesheet -->
+    <link rel="stylesheet" href="../css/login.css" />
+  </head>
+
+  <body>
+    <div class="login">
+      <div
+        style="
+          background-color: white;
+          margin-bottom: 4px;
+          font-size: 20px;
+          padding: 0 10px;
+          border: 2px solid red;
+        "
+      >
+        HINT => username = admin, password = admin
+      </div>
+      <div class="login-box">
+        <h1>Point Of Sale</h1>
+        <form action="/login" method="POST">
+          <% if(message) { %>
+          <span class="message"><%= message %></span>
+          <% } %>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <button>Login</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

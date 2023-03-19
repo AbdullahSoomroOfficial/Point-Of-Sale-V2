@@ -1,0 +1,59 @@
+<% layout('/layout/boilerplate.ejs') %>
+
+<div class="container-fluid">
+  <div class="row bg-light rounded">
+    <div class="col p-4">
+      <form
+        action="/category"
+        method="POST"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="mb-3">
+          <label for="category" class="form-label">Add Category</label>
+          <input
+            type="text"
+            class="form-control"
+            name="category"
+            id="category"
+            placeholder="Category Name"
+            required
+          />
+        </div>
+        <button class="btn btn-success col-12">Add Category</button>
+      </form>
+      <div class="d-flex flex-column mt-3">
+        <form action="/category/manage" method="GET" class="align-self-end">
+          <button class="btn btn-primary">Manage Categories</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid my-5">
+  <div class="row bg-light rounded">
+    <div class="col p-4">
+      <% if (categories.length !==0) { %> <% let counter = 1; %>
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let category of categories) { %>
+          <tr>
+            <td><%= counter %></td>
+            <td><%= category.category %></td>
+          </tr>
+          <% counter++ %> <% } %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <h3>There are no categories available!.</h3>
+      <% } %>
+    </div>
+  </div>
+</div>

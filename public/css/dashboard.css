@@ -1,0 +1,40 @@
+#cardContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+#cardContainer .card {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.d-block {
+    margin-bottom: 3px;
+}
+
+.orderDetail {
+    display: grid;
+    grid-template-columns: 80px auto;
+}
+
+.orderDetail .badge {
+    width: 60%;
+}
+
+@media screen and (max-width: 1500px) {
+    #cardContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    #cardContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #cardContainer {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
