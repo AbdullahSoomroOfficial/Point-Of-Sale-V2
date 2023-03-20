@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const MongoStore = require("connect-mongo");
 const port = 3000;
 
 // routes
@@ -17,7 +18,6 @@ const categoryRouter = require("./routes/category");
 const subCategoryRouter = require("./routes/sub-category");
 const itemRouter = require("./routes/item");
 const orderRouter = require("./routes/order");
-
 const app = express();
 
 // to access variables from .env files
@@ -53,12 +53,13 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      // Expire after 6 hours from creation
-      maxAge: 21600000,
-      store: MongoStore.create({
-        mongoUrl: process.env.MONGO,
-      }),
+      secure: false,
+      maxAge: 3600000 /*hour*/,
+      httpOnly: true,
     },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO,
+    }),
   })
 );
 // setting ejs-mate

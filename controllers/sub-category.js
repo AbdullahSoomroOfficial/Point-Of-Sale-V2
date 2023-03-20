@@ -8,7 +8,6 @@ const subCategoryController = {
     try {
       const categories = await Category.find({});
       const subCategories = await SubCategory.find({}).populate("category");
-      console.log(subCategories);
       res.render("sub-category/show", {
         title: "Add Sub-Category",
         heading: "Add Sub-Category",
