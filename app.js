@@ -55,6 +55,9 @@ app.use(
     cookie: {
       // Expire after 6 hours from creation
       maxAge: 21600000,
+      store: MongoStore.create({
+        mongoUrl: process.env.MONGO,
+      }),
     },
   })
 );
