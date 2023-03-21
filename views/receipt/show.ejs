@@ -195,35 +195,31 @@
         <div id="mid">
             <div class="info">
                 <!-- date -->
-                            <% const date=new Date(); %>
-                            <% const day=date.getDate(); %>
-                            <% const month=date.getMonth() + 1; %>
+                <% const date=new Date(); %>
+                    <% const day=date.getDate(); %>
+                        <% const month=date.getMonth() + 1; %>
                             <% const year=date.getFullYear(); %>
-                            <% const today = `${day}/${month}/${year}`; %>
-                            <% orderData.date = today%>
-                                <span class="date-time">
-                                    <!-- setting time to orderData object -->
-                                    <!-- also for showing time on receipt -->
-                                    Date: <%=today%>
-                                </span>
-                                <span class="date-time to-right">
-                                    <% 
-                                    const time = date.toLocaleTimeString();
-                                    // setting time to orderData object
-                                    // also for showing time on receipt
-                                    orderData.time = time;
-                                    %> 
-                                    Time: <%= time %>
-                                </span>
-                                <h2>Contact Info</h2>
-                                <% if(orderData) { %>
-                                    <p>
-                                        Name : <%= orderData.customerName %></br>
-                                            Phone : <%= orderData.customerNumber %></br>
-                                                Address : <%= orderData.customerAddress ? orderData.customerAddress
-                                                    : '---' %></br>
-                                    </p>
-                                    <% } %>
+                                <% const today=`${day}/${month}/${year}`; %>
+                                    <% orderData.date=today%>
+                                        <span class="date-time">
+                                            <!-- setting time to orderData object -->
+                                            <!-- also for showing time on receipt -->
+                                            Date: <%=today%>
+                                        </span>
+                                        <span class="date-time to-right">
+                                            <% const time=date.toLocaleTimeString(); // setting time to orderData object
+                                                // also for showing time on receipt orderData.time=time; %>
+                                                Time: <%= time %>
+                                        </span>
+                                        <h2>Contact Info</h2>
+                                        <% if(orderData) { %>
+                                            <p>
+                                                Name : <%= orderData.customerName %></br>
+                                                    Phone : <%= orderData.customerNumber %></br>
+                                                        Address : <%= orderData.customerAddress ?
+                                                            orderData.customerAddress : '---' %></br>
+                                            </p>
+                                            <% } %>
             </div>
         </div>
         <!--End Invoice Mid-->
@@ -331,20 +327,20 @@
                                 </td>
                                 <td class="payment">
                                     <% let total=0 %>
-                                    <% let netAmount = 0 %> 
-                                        <% orderData .items .forEach(item=> total += (item.price * item.quantity))
-                                            %>
-                                            <h2>
-                                                <% if(orderData.discount){ %>
-                                                    <%const discount=(orderData.discount * total)/100;%> 
-                                                    <%netAmount = (total - discount) %>
-                                                    <%= 'Rs.' + netAmount  %> 
-                                                <% } else { %>
-                                                        <%netAmount = total %>
-                                                        <%='Rs.' + netAmount %> 
-                                                <% } %>
-                                                <% orderData.netAmount =  netAmount %> 
-                                            </h2>
+                                        <% let netAmount=0 %>
+                                            <% orderData .items .forEach(item=> total += (item.price * item.quantity))
+                                                %>
+                                                <h2>
+                                                    <% if(orderData.discount){ %>
+                                                        <%const discount=(orderData.discount * total)/100;%>
+                                                            <%netAmount=(total - discount) %>
+                                                                <%= 'Rs.' + netAmount %>
+                                                                    <% } else { %>
+                                                                        <%netAmount=total %>
+                                                                            <%='Rs.' + netAmount %>
+                                                                                <% } %>
+                                                                                    <% orderData.netAmount=netAmount %>
+                                                </h2>
                                 </td>
                             </tr>
                 </table>
@@ -369,18 +365,34 @@
             <button class="btn btn-back">Back</button>
         </form>
         <form action="/order/print" method="POST">
-            <input type="hidden" name="orderData" value="<%= JSON.stringify(orderData) %>">
+            <input id="orderData" type="hidden" name="orderData" value="<%= JSON.stringify(orderData) %>">
             <button class="btn btn-print">Print</button>
         </form>
     </div>
 
     <!-- script for print receipt -->
     <script>
-        // const print = document.querySelector('.btn-print');
-        // print.addEventListener('click', function (e) {
-        //     e.preventDefault();
-        //     window.print();
-        // });
+        const print = document.querySelector('.btn-print');
+        const orderData = document.querySelector('#orderData');
+        print.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.print();
+        });
+        window.addEventListener("afterprint", (event) => {
+            fetch("/order/print",
+                {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify({ orderData: orderData.value})
+                })
+                .then(function (res) { window.location.href = window.location.origin + "/dashboard"; })
+                .catch(function (res) { console.log(res) })
+            
+
+        });;
     </script>
 </body>
 
