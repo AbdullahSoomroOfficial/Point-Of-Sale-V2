@@ -9,7 +9,6 @@ const itemController = {
       const categories = await Category.find({});
       const subCategories = await SubCategory.find({});
       const items = await Item.find({}).populate(["category", "sub-category"]);
-      console.log(items);
       res.render("item/show", {
         title: "Add Item",
         heading: "Add Item",
