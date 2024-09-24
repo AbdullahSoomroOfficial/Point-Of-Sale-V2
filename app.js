@@ -1,7 +1,6 @@
 // modules
 const express = require("express");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 const session = require("express-session");
 const engine = require("ejs-mate");
 const methodOverride = require("method-override");
@@ -26,7 +25,7 @@ dotenv.config();
 // Connecting with MongoDB
 // Initial connection
 mongoose
-  .connect(process.env.MONGO)
+  .connect(process.env.MONGO_DB_URL)
   .then(function () {
     console.log("Database connected successfully!");
   })
@@ -58,7 +57,7 @@ app.use(
       httpOnly: true,
     },
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO,
+      mongoUrl: process.env.MONGO_DB_URL,
     }),
   })
 );
