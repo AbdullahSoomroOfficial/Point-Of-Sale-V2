@@ -8,7 +8,6 @@ const flash = require("connect-flash");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const MongoStore = require("connect-mongo");
-const path = require("path");
 const port = 3000;
 
 // routes
@@ -39,7 +38,7 @@ mongoose.connection.on("error", function (error) {
 });
 
 // setting up app
-app.set("views", path.resolve("./views"));
+app.set("views", "./views");
 app.set("view engine", "ejs");
 app.use(express.static("./public"));
 
@@ -116,8 +115,6 @@ app.use(function (err, res, res, next) {
 });
 
 // starting server on port 3000
-// app.listen(port, function () {
-//   console.log("Server is live!");
-// });
-
-module.exports.app = app;
+app.listen(port, function () {
+  console.log("Server is live!");
+});
