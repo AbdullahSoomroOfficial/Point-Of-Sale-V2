@@ -115,6 +115,8 @@ app.use(function (err, res, res, next) {
 });
 
 // starting server on port 3000
-app.listen(port, function () {
-  console.log("Server is live!");
-});
+// app.listen(port, function () {
+//   console.log("Server is live!");
+// });
+
+module.exports.app = app;
