@@ -8,6 +8,7 @@ const flash = require("connect-flash");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const MongoStore = require("connect-mongo");
+const path = require("path");
 const port = 3000;
 
 // routes
@@ -38,9 +39,9 @@ mongoose.connection.on("error", function (error) {
 });
 
 // setting up app
-app.set("views", __dirname + "/views");
+app.set("views", "./views");
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
 //setting the limit of bodyParser
 app.use(bodyParser.json({ limit: "10mb" }));

@@ -8,7 +8,7 @@ body {
   padding: 0;
   width: 200px;
   /* background-color: #f1f1f1; */
-  background-color: #0E5E6F;
+  background-color: #0e5e6f;
   /* background-color: #3C62D1; */
   position: fixed;
   height: 100%;
@@ -99,7 +99,7 @@ div.show-sidebar {
 .category-container button {
   width: 15%;
   padding: 1.1em;
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   border: none;
   color: white;
 }
@@ -163,7 +163,7 @@ div.content {
   .hide {
     display: none;
   }
-  
+
   .show {
     display: block;
   }
